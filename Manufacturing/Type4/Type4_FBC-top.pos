@@ -1,0 +1,28 @@
+### Footprint positions - created on 2026-01-30T15:15:12+0100 ###
+### Printed by KiCad version 9.0.3
+## Unit = mm, Angle = deg.
+## Side : top
+# Ref     Val                        Package                                                    PosX       PosY       Rot  Side
+C2        10n_50V_X7R_0805           C_0805_2012Metric                                       13.7900    54.9022  -90.0000  top
+C3        220n_100V_X7R_0805         C_0805_2012Metric                                       11.7400    54.8922  -90.0000  top
+C4        10u_50V_1210               C_1210_3225Metric                                        4.9900    55.4122  -90.0000  top
+C5        10u_50V_1210               C_1210_3225Metric                                        8.3000    55.4122  -90.0000  top
+D1        STPS30120CT                TO-220-3_Vertical                                       60.4550   104.9772  180.0000  top
+D2        STPS30120CT                TO-220-3_Vertical                                       55.3750     6.0272    0.0000  top
+FID1      Fiducial                   Fiducial_0.5mm_Mask1mm                                   3.5000     3.5000    0.0000  top
+J1        banannaM6_screw_connector  bannana_M6_screw_connector                               6.6000    70.3000  180.0000  top
+J2        banannaM6_screw_connector  bannana_M6_screw_connector                               6.6500    40.4000    0.0000  top
+J3        banannaM6_screw_connector  bannana_M6_screw_connector                             109.4500    70.3000  180.0000  top
+J4        banannaM6_screw_connector  bannana_M6_screw_connector                             109.4500    40.3900    0.0000  top
+J5        banannaM6_screw_connector  bannana_M6_screw_connector                               6.6600    89.5000  180.0000  top
+J11       Conn_01x02_Pin             PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical    48.1400   107.3272  180.0000  top
+J12       Conn_01x02_Pin             PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical    44.6900     3.6772    0.0000  top
+J21       Conn_01x02_Pin             PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical    71.1400   107.3272  180.0000  top
+J22       Conn_01x02_Pin             PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical    67.6900     3.6772    0.0000  top
+J101      Conn_01x04_Socket          PinSocket_1x04_P2.54mm_Vertical                         23.5400    59.9272    0.0000  top
+J102      Conn_01x04_Socket          PinSocket_1x04_P2.54mm_Vertical                         53.3400    59.9272    0.0000  top
+J201      Conn_01x04_Socket          PinSocket_1x04_P2.54mm_Vertical                         92.2900    51.0772  180.0000  top
+J202      Conn_01x04_Socket          PinSocket_1x04_P2.54mm_Vertical                         62.4900    51.0772  180.0000  top
+S1        IPP048N12N3G               TO-220-3_Vertical                                       55.3750    63.7772    0.0000  top
+S2        IPP048N12N3G               TO-220-3_Vertical                                       60.4550    47.2272  180.0000  top
+## End

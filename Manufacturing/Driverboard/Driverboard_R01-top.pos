@@ -1,0 +1,12 @@
+### Footprint positions - created on 2025-11-23T20:59:26+0100 ###
+### Printed by KiCad version 9.0.3
+## Unit = mm, Angle = deg.
+## Side : top
+# Ref     Val                 Package                                         PosX       PosY       Rot  Side
+C6        47uF_35V_ELKO       CP_Elec_6.3x5.7                               6.4500     6.9000  -90.0000  top
+C7        10n_50V_X7R_0805    C_0805_2012Metric                            23.1000     1.7500   90.0000  top
+C8        220n_100V_X7R_0805  C_0805_2012Metric                            21.1000     1.7500   90.0000  top
+C9        2u2_50V_X7R_0805    C_0805_2012Metric                            19.1000     1.7500   90.0000  top
+R1        680E_0805           R_0805_2012Metric                             5.4375     1.1500    0.0000  top
+U1        TBA2-1212           Converter_DCDC_TRACO_TBA2-1212_Single_THT    12.8000     9.8000   90.0000  top
+## End

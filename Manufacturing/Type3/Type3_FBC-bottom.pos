@@ -1,0 +1,15 @@
+### Footprint positions - created on 2026-01-29T22:34:24+0100 ###
+### Printed by KiCad version 9.0.3
+## Unit = mm, Angle = deg.
+## Side : bottom
+# Ref     Val              Package                         PosX       PosY       Rot  Side
+C6        330uF_100V_ELKO  CP_Radial_D16.0mm_P7.50mm   -40.1400    51.7272   90.0000  bottom
+C11       330uF_100V_ELKO  CP_Radial_D16.0mm_P7.50mm   -61.6528    92.7272  180.0000  bottom
+C12       330uF_100V_ELKO  CP_Radial_D16.0mm_P7.50mm   -54.1772    18.2772    0.0000  bottom
+C21       330uF_100V_ELKO  CP_Radial_D16.0mm_P7.50mm   -61.6528    76.0272  180.0000  bottom
+C22       330uF_100V_ELKO  CP_Radial_D16.0mm_P7.50mm   -54.1772    34.9772    0.0000  bottom
+L11       100uH_8A         AGP4233473ME                -94.3900    95.6772  180.0000  bottom
+L12       100uH_8A         AGP4233473ME                -75.8400    15.3822    0.0000  bottom
+L21       100uH_8A         AGP4233473ME                -39.9900    95.6222  180.0000  bottom
+L22       100uH_8A         AGP4233473ME                -39.9400    37.8272  180.0000  bottom
+## End
