@@ -5,14 +5,7 @@ Thesis Text can be found at https://epub.technikum-wien.at/ with the Name:
 
 ----------------------------------------------------------------------------------------------------
 
-Licenses apply as follows:
-
-CERN-OHL-P_V2 applies to the following directories:
-	-Design
-	-Manufacturing
-	-Simulations_and_Calc
-	
-CC_by-nc_4.0 applies to the rest of the provided directories.
+Licenses CC_by-nc_4.0 applies to all provided data.
 
 Acknowledgement and References:
 

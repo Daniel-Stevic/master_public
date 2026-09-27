@@ -353,3 +353,166 @@ write_tf_report(fid,TF_u2_D ,s,'u2/D' ,norm_factor);
 
 fclose(fid);
 
+
+
+% Globale Einstellungen für Bodediagramm-Beschriftungen
+h_opts = bodeoptions('cstprefs');
+h_opts.FreqUnits    = 'Hz';
+h_opts.FreqScale    = 'log';
+h_opts.MagUnits     = 'dB';
+h_opts.MagScale     = 'linear';
+h_opts.PhaseUnits   = 'deg';
+h_opts.Title.String = '';
+
+%% ── Systeme vorbereiten ─────────────────────────────────────────────────────
+sys_u2_U1  = TF_to_sys(TF_u2_U1,      s, subs_vars, subs_vals);
+sys_u2_D   = TF_to_sys(TF_u2_D,       s, subs_vars, subs_vals);
+sys_uc2_U1 = TF_to_sys(G_closed(4,1), s, subs_vars, subs_vals);
+sys_il1_U1 = TF_to_sys(G_closed(1,1), s, subs_vars, subs_vals);
+
+plot_systems = {sys_u2_U1,  sys_uc2_U1,   sys_il1_U1,    sys_u2_D  };
+plot_labels  = {'u_2/u_1',  'u_{C2}/u_1', 'i_{L1}/u_1',  'u_2/d'   };
+plot_tags    = {'u2_U1',    'uC2_U1',     'iL1_U1',       'u2_D'    };
+
+%% ── Einzel-Plots: Sprungantwort und Bode ───────────────────────────────────
+for k = 1:length(plot_systems)
+    sys_k   = plot_systems{k};
+    label_k = plot_labels{k};
+    tag_k   = plot_tags{k};
+
+    %% ── Sprungantwort ───────────────────────────────────────────────────────
+    fig_step = figure('Name', ['Sprungantwort: ' tag_k]);
+    [y, t]   = step(sys_k);
+    plot(t, y, 'LineWidth', 1.5);
+    grid on;
+    xlabel('Zeit (s)');
+    ylabel('Amplitude');
+    title(['Sprungantwort: $' label_k '$'], 'Interpreter', 'latex');
+
+    %% ── Bodediagramm ────────────────────────────────────────────────────────
+    fig_bode = figure('Name', ['Bode: ' tag_k]);
+
+    % Betrag
+    subplot(2,1,1);
+    [mag, phase, w] = bode(sys_k);
+    mag_dB = 20*log10(squeeze(mag));
+    freq   = squeeze(w) / (2*pi);   % rad/s → Hz
+    semilogx(freq, mag_dB, 'LineWidth', 1.5);
+    grid on;
+    xlabel('Frequenz (Hz)');
+    ylabel('Betrag (dB)');
+    title(['Bodediagramm: $' label_k '$'], 'Interpreter', 'latex');
+
+    % Phase
+    subplot(2,1,2);
+    phase_deg = squeeze(phase);
+    semilogx(freq, phase_deg, 'LineWidth', 1.5);
+    grid on;
+    xlabel('Frequenz (Hz)');
+    ylabel('Phase (°)');
+end
+
+
+
+
+
+
+%% ── Pol-Nullstellen-Diagramme ───────────────────────────────────────────────
+
+for k = 1:length(plot_systems)
+    sys_k   = plot_systems{k};
+    label_k = plot_labels{k};
+    tag_k   = plot_tags{k};
+
+    p = pole(sys_k);
+    z = zero(sys_k);
+
+    figure('Name', ['Pol-Nullstellen: ' tag_k]);
+    ax = gca;
+    ax.FontSize      = 14;   % Achsenticks
+
+    x_max = max(abs([real(p); real(z); 1])) * 1.5;
+    y_max = max(abs([imag(p); imag(z); 1])) * 1.5;
+    x_lim = ceil(x_max / 1e3) * 1e3;
+    y_lim = ceil(y_max / 1e3) * 1e3;
+
+    patch([-x_lim 0 0 -x_lim], ...
+          [-y_lim -y_lim y_lim y_lim], ...
+          [0.9 0.95 0.9], 'EdgeColor', 'none', 'FaceAlpha', 0.4);
+    hold on;
+
+    xline(0, 'k--', 'LineWidth', 0.8);
+    yline(0, 'k--', 'LineWidth', 0.8);
+
+    if ~isempty(z)
+        scatter(real(z), imag(z), 180, 'b', 'o', ...
+            'LineWidth', 2.5, 'DisplayName', 'Nullstellen');
+    end
+    if ~isempty(p)
+        scatter(real(p), imag(p), 180, 'r', 'x', ...
+            'LineWidth', 2.5, 'DisplayName', 'Pole');
+    end
+
+    dx = x_lim * 0.04;
+    dy = y_lim * 0.04;
+
+    % Nullstellen beschriften
+    for m = 1:length(z)
+        rx = real(z(m));
+        ix = imag(z(m));
+        if rx >= 0;  tx = rx + dx * 0.8;  ha = 'left';
+        else;        tx = rx - dx * 0.8;  ha = 'right';
+        end
+        if ix >= 0;  ty = ix + dy * 0.5;
+        else;        ty = ix - dy * 0.5;
+        end
+        text(tx, ty, sprintf('z_{%d}=%.0f%+.0fj', m, rx, ix), ...
+            'Color', 'b', 'FontSize', 9, 'FontWeight', 'bold', ...
+            'HorizontalAlignment', ha);
+    end
+
+    % Pole beschriften
+    for m = 1:length(p)
+        rx = real(p(m));
+        ix = imag(p(m));
+        if rx >= 0;  tx = rx + dx * 0.8;  ha = 'left';
+        else;        tx = rx - dx * 0.8;  ha = 'right';
+        end
+        if ix >= 0;  ty = ix + dy * 1.2;
+        else;        ty = ix - dy * 1.2;
+        end
+        text(tx, ty, sprintf('p_{%d}=%.0f%+.0fj', m, rx, ix), ...
+            'Color', 'r', 'FontSize', 9, 'FontWeight', 'bold', ...
+            'HorizontalAlignment', ha);
+    end
+
+    xlim([-x_lim x_lim]);
+    ylim([-y_lim y_lim]);
+
+    x_ticks = -x_lim : 1e3 : x_lim;
+    y_ticks = -y_lim : 1e3 : y_lim;
+    set(ax, 'XTick', x_ticks, 'YTick', y_ticks);
+
+    x_tick_labels = arrayfun(@(v) sprintf('%.0fk', v/1e3), x_ticks, 'UniformOutput', false);
+    y_tick_labels = arrayfun(@(v) sprintf('%.0fk', v/1e3), y_ticks, 'UniformOutput', false);
+    set(ax, 'XTickLabel', x_tick_labels, 'YTickLabel', y_tick_labels);
+
+    grid on;
+    legend('Stabile Halbebene',  ...
+       'Location', 'northwest', 'FontSize', 12);
+    xlabel('Realteil  (×10³  s^{-1})',        'FontSize', 18);
+    ylabel('Imaginärteil  (×10³  rad/s)',     'FontSize', 18);
+    title(['Pol-Nullstellen-Diagramm: $' label_k '$'], ...
+      'Interpreter', 'latex', 'FontSize', 20);
+    hold off;
+
+    fprintf('\n=== Pol-Nullstellen: %s ===\n', tag_k)
+    fprintf('Pole:\n')
+    for m = 1:length(p)
+        fprintf('  p_%d = %+.2f %+.2f j\n', m, real(p(m)), imag(p(m)))
+    end
+    fprintf('Nullstellen:\n')
+    for m = 1:length(z)
+        fprintf('  z_%d = %+.2f %+.2f j\n', m, real(z(m)), imag(z(m)))
+    end
+end
